@@ -56,19 +56,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mostrarFFT(40);
+        mostrarFFT(5);
     }
 
     private void mostrarFFT(int m1){
         DoubleFFT_1D fft = new DoubleFFT_1D(N);
         double[] data = funcionSeno(N, m1);
-        double [] data1 = funcionSeno(N, 100);
+        double [] data1 = funcionCoseno(N, 100);
         for (int i = 0; i < data.length; i++)
             data[i]+=data1[i];
         double [] fft_data = new double[data.length*2];
         System.arraycopy(data, 0, fft_data, 0, data.length);
         fft.realForward(fft_data);
-        inicializarGrafica(valorAbsFFT(fft_data));
+        mostrarGrafico(valorAbsFFT(fft_data));
     }
 
     private double[] parteRealFFT(double[] fft){
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
     double[] funcionCoseno(int N, int M){
         double [] res = new double[N];
         for (int i = 0; i < N; i++)
-            res[i] = Math.cos(2*Math.PI*i*M/N);
+            res[i] = 0.25*Math.cos(2*Math.PI*i*M/N);
         return res;
     }
 
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         return res;
     }
 
-    private void inicializarGrafica(double[] points) {
+    private void mostrarGrafico(double[] points) {
 
         lineChart.setBackgroundColor(Color.BLACK);
 
